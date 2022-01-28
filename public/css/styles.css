@@ -1,0 +1,23 @@
+#footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 7px;
+}
+
+#footer p {
+  margin: 0;
+}
+
+form {
+  padding: 2rem;
+}
+
+h1 {
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.form-container {
+  margin-top: 2rem;
+}

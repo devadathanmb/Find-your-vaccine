@@ -1,0 +1,63 @@
+<h1>Find your vaccine!!</h1>
+<div class="container-fluid form-container">
+  <form class="row g-3 d-flex justify-content-center" action="/" method="post">
+    <div class="col-md-6">
+      <label class="form-label">State</label>
+      <input type="text" name="state" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">District</label>
+      <input type="text" name="district" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-control" name="date">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Age</label>
+      <select class="form-select" name="age">
+        <option selected>Choose...</option>
+        <option>18 - 45</option>
+        <option>Above 45</option>
+        <option>15 - 18</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Vaccine Type</label>
+      <select class="form-select" name="vaccineType">
+        <option selected>Choose...</option>
+        <option>Covishield</option>
+        <option>Covaxin</option>
+        <option>Sputnik V</option>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Dose type</label>
+      <select class="form-select" name="doseType">
+        <option selected>Choose...</option>
+        <option>First dose</option>
+        <option>Second dose</option>
+        <option>Booster dose</option>
+      </select>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <div class="form-check">
+        <input class="form-check-input" name="free" type="checkbox">
+        <label class="form-check-label">
+          Free vaccine
+        </label>
+      </div>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <div class="form-check">
+        <input class="form-check-input" name="paid" type="checkbox">
+        <label class="form-check-label">
+          Paid vaccine
+        </label>
+      </div>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <button type="submit" class="btn btn-lg btn-primary">Find vaccine</button>
+    </div>
+  </form>
+</div>
