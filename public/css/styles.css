@@ -1,16 +1,23 @@
 #footer {
-  background-color: black;
+  background-color: #1f1d36;
   color: white;
   text-align: center;
   padding: 7px;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+#footer p {
+  margin: 0;
 }
 
 .navbar {
   background-color: #1f1d36;
 }
 
-#footer p {
-  margin: 0;
+button {
+  margin-bottom: 2rem;
 }
 
 form {
@@ -58,4 +65,21 @@ h1 {
 
 .center-details p {
   margin-bottom: 0.2rem;
+}
+
+.about-container {
+  padding: 0 2rem 2rem 2rem;
+}
+
+.about-container p {
+  font-size: 1.1rem;
+}
+
+h2 {
+  margin-bottom: 2rem;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
 }
