@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const axios = require("axios");
+const format = require('date-format');
 
 const app = express();
 
@@ -36,60 +37,65 @@ app.post("/", function(req, res) {
   const state = req.body.state;
   const district = req.body.district;
   const age = req.body.age;
+  var stateId;
+  var districtId;
   const free = req.body.free;
   const paid = req.body.paid;
-  const date = req.body.date;
+  let date = new Date(req.body.date + "Z");
+  date = format.asString('dd-MM-yyyy', date);
   const vaccineType = req.body.vaccineType;
   const doseType = req.body.doseType;
-
-  function getStates() {
-    axios.get(statesApiUrl).then(function(respose) {
-        states = (respose.data.states);
-      }),
-      function(error) {
-        console.log(error);
-      }
+  console.log(date);
+  async function getStates() {
+    try {
+      const response = await axios.get(statesApiUrl);
+      states = response.data.states;
+      getStateId();
+    } catch (error) {
+      console.log(error);
+    }
   }
   getStates();
 
   function getStateId() {
     for (let i = 0; i < states.length; i++) {
       if (state.toLowerCase().replace(/\s/g, '') === states[i].state_name.toLowerCase().replace(/\s/g, '')) {
-        return ((states[i].state_id));
+        stateId = (states[i].state_id);
+        break;
       }
     }
+    getDistricts();
   }
-  var stateId = getStateId();
 
   function getDistricts() {
     axios.get(districtsApiUrl + "/" + stateId).then(function(response) {
-        console.log(response.data);
+        districts = response.data.districts;
+        getDistrictId();
       }),
       function(error) {
         console.log(error);
       }
   }
-  getDistricts();
 
   function getDistrictId() {
     for (let i = 0; i < districts.length; i++) {
       if (district.toLowerCase().replace(/\s/g, '') === districts[i].district_name.toLowerCase().replace(/\s/g, '')) {
-        return districts[i].district_id;
+        districtId = districts[i].district_id;
+        break;
       }
     }
+    findVaccine();
   }
-  // var districtId = getDistrictId();
 
   function findVaccine() {
     axios.get(findByDistrictApiUrl + "?district_id=" + districtId + "&date=" + date).then(function(response) {
-        vaccineSessions = response.body.sessions;
+        vaccineSessions = response.data.sessions;
+        console.log(vaccineSessions);
       }),
       function(error) {
         console.log(error);
       }
   }
-  // findVaccine();
-  // console.log(vaccineSessions);
 });
 
 app.listen(PORT, function() {
