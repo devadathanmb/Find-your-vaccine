@@ -1,3 +1,67 @@
 <%- include("partials/header"); -%>
+<!-- Vaccine Search Results -->
+<div class="container-fluid vaccine-details-heading">
+  <h1>Results for the date <%= searchDate %></h1>
+</div>
 
+<!-- Heading -->
+<div class="container-fluid vaccine-details-container">
+  <div class="row">
+    <div class="col center-add-heading vac-details-heading">
+      <p>Center Address</p>
+    </div>
+    <div class="col vac-details-heading">
+      <p>Vaccine Type</p>
+    </div>
+    <div class="col vac-details-heading">
+      <p>Free / Paid</p>
+    </div>
+    <div class="col vac-details-heading">
+      <p>Dose Type</p>
+    </div>
+    <div class="col vac-details-heading">
+      <p>Age group</p>
+    </div>
+    <div class="col vac-details-heading">
+      <p>Slots</p>
+    </div>
+  </div>
+
+  <!-- Row one -->
+  <% sessionList.forEach(function(session){%>
+  <div class="row">
+    <div class="col center-details">
+      <p class="name"><%= session.name %></p>
+      <p class="address"><%= session.address %>,</p>
+      <p class="block-name"><%= session.block_name %>,</p>
+      <p class="pincode"><%= session.pincode %></p>
+    </div>
+    <div class="col vaccine-type">
+      <p><%= session.vaccine %></p>
+    </div>
+    <div class="col free-paid">
+      <p><%= session.fee_type %></p>
+    </div>
+    <div class="col dose">
+      <p class="dose-1">Dose 1 : <%= session.available_capacity_dose1 %></p>
+      <p class="dose-2">Dose 2 : <%= session.available_capacity_dose2 %></p>
+    </div>
+    <div class="col age">
+      <% if(session.allow_all_age == true){ %>
+      <p><%= session.min_age_limit %> + </p>
+      <%} else if(session.min_age_limit == 44){%>
+      <p><%= session.min_age_limit %> +</p>
+      <%} else{%>
+      <p><%= session.min_age_limit%> - <%= session.max_age_limit %></p>
+      <% } %>
+    </div>
+    <div class="col slot">
+      <% session.slots.forEach(function(slot){ %>
+      <p class="slot-timing"><%= slot %></p>
+      <% }); %>
+    </div>
+  </div>
+  <hr />
+  <%});%>
+</div>
 <%- include("partials/footer"); -%>

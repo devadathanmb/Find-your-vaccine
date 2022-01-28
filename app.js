@@ -20,6 +20,8 @@ let districts = [];
 
 let vaccineSessions = [];
 
+let shortListedVaccineSessions = [];
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({
@@ -37,15 +39,68 @@ app.post("/", function(req, res) {
   const state = req.body.state;
   const district = req.body.district;
   const age = req.body.age;
+  let minAge;
+  let maxAge;
+
+  if (age == "18 - 45") {
+    minAge = 18;
+    maxAge = 44;
+  } else if (age == "Above 45") {
+    minAge = 44;
+  } else if (age == "15 - 18") {
+    minAge = 15;
+    maxAge = 18;
+  }
+
   var stateId;
   var districtId;
-  const free = req.body.free;
-  const paid = req.body.paid;
+
+  const free = (function() {
+    if (req.body.free == "on") {
+      return true;
+    } else {
+      return false;
+    }
+  })();
+
+  const paid = (function() {
+    if (req.body.paid == "on") {
+      return true;
+    } else {
+      return false;
+    }
+  })();
+
+  if (paid == false && free == false) {
+    paid = true;
+    free = true;
+  }
+
   let date = new Date(req.body.date + "Z");
   date = format.asString('dd-MM-yyyy', date);
-  const vaccineType = req.body.vaccineType;
-  const doseType = req.body.doseType;
-  console.log(date);
+
+
+  const vaccineType = (function() {
+    if (req.body.vaccineType == "Covishield") {
+      return "COVISHIELD";
+    } else if (req.body.vaccineType == "Covaxin") {
+      return "COVAXIN";
+    } else if (req.body.vaccineType == "Sputnik V") {
+      return "SPUTNIK V";
+    }
+  })();
+
+
+  const doseType = (function() {
+    if (req.body.doseType == "First dose") {
+      return "dose1";
+    } else if (req.body.doseType == "Second dose") {
+      return "dose2";
+    } else if (req.body.doseType == "Booster dose") {
+      return "dose3";
+    }
+  })();
+  console.log(doseType, vaccineType, paid, free, maxAge, minAge);
   async function getStates() {
     try {
       const response = await axios.get(statesApiUrl);
@@ -90,12 +145,76 @@ app.post("/", function(req, res) {
   function findVaccine() {
     axios.get(findByDistrictApiUrl + "?district_id=" + districtId + "&date=" + date).then(function(response) {
         vaccineSessions = response.data.sessions;
-        console.log(vaccineSessions);
+        shortListSessions();
       }),
       function(error) {
         console.log(error);
       }
   }
+
+  function shortListSessions() {
+    vaccineSessions.forEach((session) => {
+      if (session.vaccine == vaccineType) {
+        if (session.allow_all_age == true) {
+          if (doseType == "dose1" && session.available_capacity_dose1 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
+          } else if (doseType == "dose2" && session.available_capacity_dose2 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
+          }
+        } else if (session.max_age_limit == 44 && minAge == 18) {
+          if (paid == true && free == true && session.fee >= 0) {
+            shortListedVaccineSessions.push(session);
+          } else if (paid == true && free == false && session.fee > 0) {
+            shortListedVaccineSessions.push(session);
+          } else if (free == true && session.fee == 0) {
+            shortListedVaccineSessions.push(session);
+          }
+        } else if (session.min_age_limit == 45 && minAge == 45) {
+          if (paid == true && free == true && session.fee >= 0) {
+            shortListedVaccineSessions.push(session);
+          } else if (paid == true && free == false && session.fee > 0) {
+            shortListedVaccineSessions.push(session);
+          } else if (free == true && session.fee == 0) {
+            shortListedVaccineSessions.push(session);
+          }
+        } else if (session.min_age_limit == 15 && minAge == 15) {
+          if (paid == true && free == true && session.fee >= 0) {
+            shortListedVaccineSessions.push(session);
+          } else if (paid == true && free == false && session.fee > 0) {
+            shortListedVaccineSessions.push(session);
+          } else if (free == true && session.fee == 0) {
+            shortListedVaccineSessions.push(session);
+          }
+        }
+      }
+    });
+    renderOnPage();
+  }
+
+  function renderOnPage() {
+    console.log(shortListedVaccineSessions);
+    res.render("output", {
+      searchDate: date,
+      sessionList: shortListedVaccineSessions
+    });
+    shortListedVaccineSessions = [];
+  }
+});
+
+app.get("/about", function(req, res) {
+  res.render("about");
 });
 
 app.listen(PORT, function() {
