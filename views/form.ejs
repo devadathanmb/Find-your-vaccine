@@ -3,11 +3,15 @@
   <form class="row g-3 d-flex justify-content-center" action="/" method="post">
     <div class="col-md-6">
       <label class="form-label">State</label>
-      <input type="text" name="state" class="form-control" required>
+      <select class="form-select state-select" name="state" required>
+        <option selected>Choose...</option>
+      </select>
     </div>
     <div class="col-md-6">
       <label class="form-label">District</label>
-      <input type="text" name="district" class="form-control" required>
+      <select class="form-select district-select" name="district" required>
+        <option selected>Choose...</option>
+      </select>
     </div>
     <div class="col-md-6">
       <label class="form-label">Date</label>
@@ -24,7 +28,7 @@
     </div>
     <div class="col-md-6">
       <label class="form-label">Vaccine Type</label>
-      <select class="form-select" name="vaccineType" required>
+      <select class="form-select vac-select" name="vaccineType" required>
         <option selected>Choose...</option>
         <option>Covishield</option>
         <option>Covaxin</option>
@@ -61,3 +65,4 @@
     </div>
   </form>
 </div>
+<script src="index.js" charset="utf-8"></script>
