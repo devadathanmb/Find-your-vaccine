@@ -174,28 +174,58 @@ app.post("/", function(req, res) {
             }
           }
         } else if (session.max_age_limit == 44 && minAge == 18) {
-          if (paid == true && free == true && session.fee >= 0) {
-            shortListedVaccineSessions.push(session);
-          } else if (paid == true && free == false && session.fee > 0) {
-            shortListedVaccineSessions.push(session);
-          } else if (free == true && session.fee == 0) {
-            shortListedVaccineSessions.push(session);
+          if (doseType == "dose1" && session.available_capacity_dose1 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
+          } else if (doseType == "dose2" && session.available_capacity_dose2 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
           }
         } else if (session.min_age_limit == 45 && minAge == 45) {
-          if (paid == true && free == true && session.fee >= 0) {
-            shortListedVaccineSessions.push(session);
-          } else if (paid == true && free == false && session.fee > 0) {
-            shortListedVaccineSessions.push(session);
-          } else if (free == true && session.fee == 0) {
-            shortListedVaccineSessions.push(session);
+          if (doseType == "dose1" && session.available_capacity_dose1 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
+          } else if (doseType == "dose2" && session.available_capacity_dose2 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
           }
         } else if (session.min_age_limit == 15 && minAge == 15) {
-          if (paid == true && free == true && session.fee >= 0) {
-            shortListedVaccineSessions.push(session);
-          } else if (paid == true && free == false && session.fee > 0) {
-            shortListedVaccineSessions.push(session);
-          } else if (free == true && session.fee == 0) {
-            shortListedVaccineSessions.push(session);
+          if (doseType == "dose1" && session.available_capacity_dose1 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
+          } else if (doseType == "dose2" && session.available_capacity_dose2 > 0) {
+            if (paid == true && free == true && session.fee >= 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (paid == true && free == false && session.fee > 0) {
+              shortListedVaccineSessions.push(session);
+            } else if (free == true && session.fee == 0) {
+              shortListedVaccineSessions.push(session);
+            }
           }
         }
       }
@@ -204,7 +234,6 @@ app.post("/", function(req, res) {
   }
 
   function renderOnPage() {
-    console.log(shortListedVaccineSessions);
     res.render("output", {
       searchDate: date,
       sessionList: shortListedVaccineSessions
