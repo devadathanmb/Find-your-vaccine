@@ -107,6 +107,7 @@ app.post("/", function(req, res) {
       states = response.data.states;
       getStateId();
     } catch (error) {
+      res.render("/failure");
       console.log(error);
     }
   }
@@ -128,6 +129,7 @@ app.post("/", function(req, res) {
         getDistrictId();
       }),
       function(error) {
+        res.render("/failure");
         console.log(error);
       }
   }
@@ -148,6 +150,7 @@ app.post("/", function(req, res) {
         shortListSessions();
       }),
       function(error) {
+        res.render("/failure");
         console.log(error);
       }
   }
