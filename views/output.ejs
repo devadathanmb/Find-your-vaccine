@@ -7,22 +7,22 @@
 <!-- Heading -->
 <div class="container-fluid vaccine-details-container">
   <div class="row">
-    <div class="col center-add-heading vac-details-heading">
+    <div class="col-12 col-sm center-add-heading vac-details-heading">
       <p>Center Address</p>
     </div>
-    <div class="col vac-details-heading">
+    <div class="col-12 col-sm vac-details-heading">
       <p>Vaccine Type</p>
     </div>
-    <div class="col vac-details-heading">
+    <div class="col-12 col-sm vac-details-heading">
       <p>Free / Paid</p>
     </div>
-    <div class="col vac-details-heading">
+    <div class="col-12 col-sm vac-details-heading">
       <p>Dose Type</p>
     </div>
-    <div class="col vac-details-heading">
+    <div class="col-12 col-sm vac-details-heading">
       <p>Age group</p>
     </div>
-    <div class="col vac-details-heading">
+    <div class="col-12 col-sm vac-details-heading">
       <p>Slots</p>
     </div>
   </div>
@@ -30,23 +30,28 @@
   <!-- Row one -->
   <% sessionList.forEach(function(session){%>
   <div class="row">
-    <div class="col center-details">
+    <div class="col-12 col-sm center-details">
+      <label class="responsive-heading">Center Address : </label>
       <p class="name"><%= session.name %></p>
       <p class="address"><%= session.address %>,</p>
       <p class="block-name"><%= session.block_name %>,</p>
       <p class="pincode"><%= session.pincode %></p>
     </div>
-    <div class="col vaccine-type">
+    <div class="col-12 col-sm vaccine-type">
+      <label class="responsive-heading">Vaccine Type : </label>
       <p><%= session.vaccine %></p>
     </div>
-    <div class="col free-paid">
+    <div class="col-12 col-sm free-paid">
+      <label class="responsive-heading">Fee : </label>
       <p><%= session.fee_type %></p>
     </div>
-    <div class="col dose">
+    <div class="col-12 col-sm dose">
+      <label class="responsive-heading">Dose Qty : </label>
       <p class="dose-1">Dose 1 : <%= session.available_capacity_dose1 %></p>
       <p class="dose-2">Dose 2 : <%= session.available_capacity_dose2 %></p>
     </div>
-    <div class="col age">
+    <div class="col-12 col-sm age">
+      <label class="responsive-heading">Age : </label>
       <% if(session.allow_all_age == true){ %>
       <p><%= session.min_age_limit %> + </p>
       <%} else if(session.min_age_limit == 44){%>
@@ -55,7 +60,8 @@
       <p><%= session.min_age_limit%> - <%= session.max_age_limit %></p>
       <% } %>
     </div>
-    <div class="col slot">
+    <div class="col-12 col-sm slot">
+      <label class="responsive-heading">Slots : </label>
       <% session.slots.forEach(function(slot){ %>
       <p class="slot-timing"><%= slot %></p>
       <% }); %>

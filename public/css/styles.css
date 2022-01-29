@@ -83,3 +83,28 @@ body {
   position: relative;
   min-height: 100vh;
 }
+
+.responsive-heading {
+  display: none;
+}
+
+@media only screen and (max-width: 576px) {
+
+  .center-add-heading,
+  .center-details {
+    text-align: center;
+  }
+
+  .vac-details-heading {
+    display: none;
+  }
+
+  p {
+    display: inline-block;
+  }
+
+  .responsive-heading {
+    display: inline;
+    font-weight: bolder;
+  }
+}
