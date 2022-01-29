@@ -103,6 +103,11 @@ body {
     display: inline-block;
   }
 
+  hr {
+    background-color: #1f1d36;
+    opacity: 1;
+  }
+
   .responsive-heading {
     display: inline;
     font-weight: bolder;
