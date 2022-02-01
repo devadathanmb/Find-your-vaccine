@@ -17,6 +17,7 @@ git clone https://github.com/devadathanmb/find-your-vaccine.git
 npm install
 ```
 ##Steps to access the website
+----
 To start the express server, run the following in the cloned directory.
 ```shell
 node app.js
