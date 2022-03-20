@@ -1,6 +1,6 @@
 Find your vaccine!
 ---
-A basic vaccine slot finder web app made using node js and express js at thebackend and uses Co-Win public API to fetch data.
+A basic vaccine slot finder web app made using node js and express js at the backend and uses Co-Win public API to fetch data.
 
 Requirements
 ---
